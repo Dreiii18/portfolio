@@ -117,28 +117,28 @@ function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
         
-        {/* Status Badge */}
-        <div className="absolute top-4 right-4">
-          <span className={cn(
-            'px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm',
-            project.status === 'completed'
-              ? 'bg-green-100/90 text-green-800'
-              : project.status === 'in-progress'
-              ? 'bg-yellow-100/90 text-yellow-800'
-              : 'bg-blue-100/90 text-blue-800'
-          )}>
-            {project.status.replace('-', ' ')}
-          </span>
-        </div>
-
         {/* Featured Badge */}
         {project.featured && (
-          <div className="absolute top-4 left-4">
-            <span className="px-3 py-1 bg-primary-500/90 text-white rounded-full text-xs font-medium backdrop-blur-sm">
+          <div className="absolute top-4 left-4 z-20">
+            <span className="px-3 py-1 bg-primary-500 text-white rounded-full text-xs font-medium">
               Featured
             </span>
           </div>
         )}
+
+        {/* Status Badge */}
+        <div className="absolute top-4 right-4 z-10">
+          <span className={cn(
+            'px-3 py-1 rounded-full text-xs font-medium',
+            project.status === 'completed'
+              ? 'bg-green-100 text-green-800'
+              : project.status === 'in-progress'
+              ? 'bg-yellow-100 text-yellow-800'
+              : 'bg-blue-100 text-blue-800'
+          )}>
+            {project.status.replace('-', ' ')}
+          </span>
+        </div>
       </div>
 
       {/* Project Content */}

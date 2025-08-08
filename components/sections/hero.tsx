@@ -253,11 +253,12 @@ export function HeroSection() {
       </div>
 
       <motion.div 
-        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-50"
+        className="absolute bottom-6 sm:bottom-8 w-full z-50"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
       >
+        <div className="flex justify-center">
         <motion.button 
           onClick={() => scrollToSection('#about')}
           className="flex flex-col items-center space-y-1 sm:space-y-2 text-gray-600 hover:text-primary-600 transition-colors duration-300 touch-manipulation"
@@ -275,6 +276,7 @@ export function HeroSection() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </motion.button>
+        </div>
       </motion.div>
     </section>
   )
