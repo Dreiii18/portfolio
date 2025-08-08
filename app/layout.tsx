@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Fira_Code } from 'next/font/google'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const inter = Inter({
@@ -110,6 +111,7 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   )
