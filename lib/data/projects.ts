@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: 'PAZ Car Rental Platform',
     description: 'Full-stack car rental platform with JWT authentication, payment processing, and real-time vehicle availability.',
     longDescription: 'A comprehensive car rental management system featuring user authentication, role-based access control, integrated payment processing with PayMongo, and real-time vehicle availability tracking. Built with modern full-stack technologies for optimal performance and user experience.',
-    technologies: ['TypeScript', 'React', 'Next.js', 'Express.js', 'PostgreSQL', 'Redux Toolkit', 'PayMongo API'],
+    technologies: ['TypeScript', 'React', 'Next.js', 'Express.js', 'PostgreSQL', 'Redux Toolkit', 'PayMongo API', 'Netlify'],
     features: [
       'Full-stack rental platform architecture',
       'JWT authentication and session management',
@@ -37,14 +37,13 @@ export const projects: Project[] = [
     title: 'ScanPro Concrete Imaging',
     description: 'Professional business website for concrete imaging services with SEO optimization and modern design.',
     longDescription: 'A comprehensive business website for ScanPro Concrete Imaging, featuring professional design, SEO optimization, dynamic routing, and integrated contact systems. Built with modern web technologies to showcase concrete imaging services and generate leads.',
-    technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Tailwind CSS', 'Vercel'],
+    technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Tailwind CSS', 'Netlify'],
     features: [
       'Professional business website design',
       'SEO optimization for search visibility',
       'Dynamic routing and content management',
       'MongoDB integration for data storage',
       'Responsive design for all devices',
-      'Dual email notification system',
       'Advanced form validation',
       'Performance optimized loading'
     ],
@@ -55,6 +54,37 @@ export const projects: Project[] = [
       '/images/projects/scanpro-contact.jpg'
     ],
     liveUrl: 'https://scanproconcreteimaging.netlify.app',
+    category: 'fullstack',
+    featured: true,
+    year: '2025',
+    status: 'completed'
+  },
+  {
+    id: 'portfolio',
+    title: 'Personal Developer Portfolio',
+    description: 'Modern portfolio website showcasing full-stack development skills and professional projects.',
+    longDescription: 'A comprehensive developer portfolio built with Next.js and TypeScript, featuring dark/light theme support, responsive design, and modern animations. Showcases professional projects, technical skills, and career journey through an intuitive and visually appealing interface.',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
+    features: [
+      'Modern responsive design with animations',
+      'Project showcase with detailed views',
+      'Skills and technologies display',
+      'Professional experience timeline',
+      'Contact form integration',
+      'SEO optimization',
+      'Performance optimized',
+      'Mobile-first approach',
+      'Accessibility compliant'
+    ],
+    image: '/images/portfolio-hero.png',
+    images: [
+      '/images/portfolio-hero.png',
+      '/images/projects/portfolio-projects.jpg',
+      '/images/projects/portfolio-about.jpg',
+      '/images/projects/portfolio-contact.jpg'
+    ],
+    liveUrl: 'https://portfolio-roan-nine-u51zkyxgwk.vercel.app',
+    githubUrl: 'https://github.com/Dreiii18/portfolio',
     category: 'fullstack',
     featured: true,
     year: '2025',
