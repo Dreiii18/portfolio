@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import { FadeIn } from '@/components/animations/fade-in'
 import { StaggerChildren, StaggerItem } from '@/components/animations/stagger-children'
 import { projects } from '@/lib/data/projects'
@@ -12,8 +11,6 @@ export function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null)
 
   const filteredProjects = projects
-
-  const featuredProjects = projects.filter(project => project.featured)
 
   return (
     <section id="projects" className="py-20 lg:py-32">
@@ -32,12 +29,11 @@ export function ProjectsSection() {
         {/* Projects Grid */}
         <div>
             <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
+              {filteredProjects.map((project) => (
                 <StaggerItem key={project.id}>
                   <ProjectCard 
                     project={project}
                     onSelect={setSelectedProject}
-                    index={index}
                   />
                 </StaggerItem>
               ))}
@@ -72,10 +68,9 @@ export function ProjectsSection() {
 interface ProjectCardProps {
   project: any
   onSelect: (id: string) => void
-  index: number
 }
 
-function ProjectCard({ project, onSelect, index }: ProjectCardProps) {
+function ProjectCard({ project, onSelect }: ProjectCardProps) {
   return (
     <motion.div
       className="project-card group cursor-pointer"

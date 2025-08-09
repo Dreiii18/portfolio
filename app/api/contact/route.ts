@@ -15,11 +15,14 @@ let transporter: nodemailer.Transporter | null = null
 const getTransporter = () => {
   if (!transporter) {
     transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: false, // Use STARTTLS
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+      tls: { rejectUnauthorized: false },
       pool: true, // Use connection pooling
       maxConnections: 5, // Maximum concurrent connections
       maxMessages: 100, // Maximum messages per connection

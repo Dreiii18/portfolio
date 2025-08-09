@@ -154,7 +154,7 @@ export function copyToClipboard(text: string): Promise<boolean> {
     const successful = document.execCommand('copy')
     document.body.removeChild(textArea)
     return Promise.resolve(successful)
-  } catch (err) {
+  } catch {
     document.body.removeChild(textArea)
     return Promise.resolve(false)
   }
