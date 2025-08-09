@@ -159,7 +159,14 @@ Sent from your portfolio contact form
     }
 
     console.log('Sending email...')
-    const result = await transporter.sendMail(mailOptions)
+    
+    // Add timeout to prevent hanging
+    const emailPromise = transporter.sendMail(mailOptions)
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Email timeout after 10 seconds')), 10000)
+    )
+    
+    const result = await Promise.race([emailPromise, timeoutPromise])
     console.log('Email sent successfully!')
     console.log('Send result:', result.messageId)
     
@@ -172,7 +179,6 @@ Sent from your portfolio contact form
         response: (error as any).response
       })
     }
-    // In production, you might want to implement retry logic or queue system here
   }
 }
 
