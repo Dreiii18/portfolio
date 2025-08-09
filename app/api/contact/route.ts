@@ -98,7 +98,13 @@ function validateFormData(data: ContactFormData): string[] {
 // Background email sending function
 async function sendEmailAsync(emailData: ContactFormData) {
   try {
+    console.log('Starting email send process for:', emailData.email)
     const transporter = getTransporter()
+    
+    // Test connection first
+    console.log('Testing SMTP connection...')
+    await transporter.verify()
+    console.log('SMTP connection verified')
     
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -157,11 +163,20 @@ Sent from your portfolio contact form
       replyTo: emailData.email,
     }
 
-    await transporter.sendMail(mailOptions)
-    console.log(`Email sent successfully for ${emailData.name} (${emailData.email})`)
+    console.log('Sending email...')
+    const result = await transporter.sendMail(mailOptions)
+    console.log('Email sent successfully!')
+    console.log('Send result:', result.messageId)
     
   } catch (error) {
-    console.error(`Failed to send email for ${emailData.name}:`, error)
+    console.error('Failed to send email:', error)
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        code: (error as any).code,
+        response: (error as any).response
+      })
+    }
     // In production, you might want to implement retry logic or queue system here
   }
 }
