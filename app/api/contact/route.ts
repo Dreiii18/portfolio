@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
 // Types for the request body
 interface ContactFormData {
@@ -9,29 +9,8 @@ interface ContactFormData {
   message: string
 }
 
-// Create reusable transporter with connection pooling (faster subsequent emails)
-let transporter: nodemailer.Transporter | null = null
-
-const getTransporter = () => {
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: false, // Use STARTTLS
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      tls: { rejectUnauthorized: false },
-      pool: true, // Use connection pooling
-      maxConnections: 5, // Maximum concurrent connections
-      maxMessages: 100, // Maximum messages per connection
-      rateDelta: 1000, // Rate limiting: 1 second between messages
-      rateLimit: 5, // Maximum 5 messages per rateDelta
-    })
-  }
-  return transporter
-}
+// Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Validation function
 function validateFormData(data: ContactFormData): string[] {
@@ -99,23 +78,13 @@ function validateFormData(data: ContactFormData): string[] {
 async function sendEmailAsync(emailData: ContactFormData) {
   try {
     console.log('Starting email send process for:', emailData.email)
-    const transporter = getTransporter()
+    console.log('Sending email with Resend...')
     
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    const result = await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>',
       to: 'andreiartap@gmail.com',
       subject: `Portfolio Contact: ${emailData.subject}`,
-      text: `
-Name: ${emailData.name}
-Email: ${emailData.email}
-Subject: ${emailData.subject}
-
-Message:
-${emailData.message}
-
----
-Sent from your portfolio contact form
-      `,
+      replyTo: emailData.email,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
           <div style="background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
@@ -130,9 +99,7 @@ Sent from your portfolio contact form
             
             <div style="margin-bottom: 20px;">
               <strong style="color: #4F46E5;">Email:</strong>
-              <p style="margin: 5px 0 15px 0; color: #333;">
-                <a href="mailto:${emailData.email}" style="color: #4F46E5; text-decoration: none;">${emailData.email}</a>
-              </p>
+              <p style="margin: 5px 0 15px 0; color: #333;">${emailData.email}</p>
             </div>
             
             <div style="margin-bottom: 20px;">
@@ -155,28 +122,17 @@ Sent from your portfolio contact form
           </div>
         </div>
       `,
-      replyTo: emailData.email,
-    }
-
-    console.log('Sending email...')
+    })
     
-    // Add timeout to prevent hanging
-    const emailPromise = transporter.sendMail(mailOptions)
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Email timeout after 10 seconds')), 10000)
-    )
-    
-    const result = await Promise.race([emailPromise, timeoutPromise])
-    console.log('Email sent successfully!')
-    console.log('Send result:', result.messageId)
+    console.log('Email sent successfully with Resend!')
+    console.log('Send result:', result.data?.id)
     
   } catch (error) {
-    console.error('Failed to send email:', error)
+    console.error('Failed to send email with Resend:', error)
     if (error instanceof Error) {
       console.error('Error details:', {
         message: error.message,
-        code: (error as any).code,
-        response: (error as any).response
+        name: error.name
       })
     }
   }
@@ -199,16 +155,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Quick environment check
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      console.error('Missing email configuration environment variables')
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Missing RESEND_API_KEY environment variable')
       return NextResponse.json(
         { error: 'Email service not configured' },
         { status: 500 }
       )
     }
 
-    // PERFORMANCE BOOST: Send email in background (don't wait)
-    // This makes the API response almost instant while email sends separately
+    // Send email in background (don't wait)
     sendEmailAsync(body).catch(error => {
       console.error('Background email sending failed:', error)
     })
