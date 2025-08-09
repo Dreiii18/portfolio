@@ -101,11 +101,6 @@ async function sendEmailAsync(emailData: ContactFormData) {
     console.log('Starting email send process for:', emailData.email)
     const transporter = getTransporter()
     
-    // Test connection first
-    console.log('Testing SMTP connection...')
-    await transporter.verify()
-    console.log('SMTP connection verified')
-    
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: 'andreiartap@gmail.com',
@@ -208,8 +203,8 @@ export async function POST(request: NextRequest) {
 
     // PERFORMANCE BOOST: Send email in background (don't wait)
     // This makes the API response almost instant while email sends separately
-    setImmediate(() => {
-      sendEmailAsync(body)
+    sendEmailAsync(body).catch(error => {
+      console.error('Background email sending failed:', error)
     })
 
     const responseTime = Date.now() - startTime
