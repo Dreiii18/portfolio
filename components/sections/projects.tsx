@@ -86,15 +86,11 @@ function ProjectCard({ project, onSelect }: ProjectCardProps) {
             alt={`${project.title} preview`}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
-              console.log(`Failed to load image: ${project.image}`);
               // Fallback to placeholder if image fails to load
               const target = e.target as HTMLImageElement;
               target.style.display = 'none';
               const fallback = target.parentElement?.querySelector('.fallback-placeholder') as HTMLElement;
               if (fallback) fallback.style.display = 'flex';
-            }}
-            onLoad={() => {
-              console.log(`Successfully loaded image: ${project.image}`);
             }}
           />
         ) : null}
