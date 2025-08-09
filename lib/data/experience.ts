@@ -10,10 +10,10 @@ export const experiences: Experience[] = [
     startDate: 'Sep 2023',
     endDate: 'Apr 2025',
     description: [
-      'Pursuing Computer Studies Diploma with focus on full-stack web development',
-      'Learning modern programming languages and web technologies',
-      'Developing practical skills through hands-on projects and assignments',
-      'Collaborating on team projects using industry-standard development practices'
+      'Completed Computer Studies Diploma with focus on full-stack web development',
+      'Learned modern programming languages and web technologies',
+      'Developed practical skills through hands-on projects and assignments',
+      'Collaborated on team projects using industry-standard development practices'
     ],
     achievements: [
       'GPA: 3.62/4.33',
@@ -21,7 +21,7 @@ export const experiences: Experience[] = [
       'Consistent academic excellence across all semesters',
       'Active participation in coding projects and presentations'
     ],
-    technologies: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js', 'PHP', 'Java', 'C++', 'Python', 'MySQL', 'MongoDB'],
+    technologies: ['JavaScript', 'React', 'Next.js', 'Node.js', 'PHP', 'Java', 'C++', 'Python', 'MySQL', 'MongoDB'],
     gpa: '3.62',
     honors: ['Dean\'s Honor Roll - Fall 2023', 'Dean\'s Honor Roll - Spring 2024', 'Dean\'s Honor Roll - Fall 2024']
   },

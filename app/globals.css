@@ -41,6 +41,34 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* iPhone safe area and notch handling */
+  @supports (padding: max(0px)) {
+    body {
+      padding-top: max(0px, env(safe-area-inset-top));
+      padding-bottom: max(0px, env(safe-area-inset-bottom));
+      padding-left: max(0px, env(safe-area-inset-left));
+      padding-right: max(0px, env(safe-area-inset-right));
+    }
+  }
+
+  /* Ensure consistent background for status bar area */
+  html {
+    background-color: hsl(var(--background));
+  }
+
+  /* iOS Safari status bar color */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0);
+    background-color: hsl(var(--background));
+    z-index: 9999;
+    pointer-events: none;
+  }
 }
 
 @layer components {

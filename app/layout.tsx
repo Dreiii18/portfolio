@@ -21,6 +21,12 @@ export const metadata: Metadata = {
     default: 'Andrei Artap | Full-Stack Developer',
     template: '%s | Andrei Artap'
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    viewportFit: 'cover',
+  },
   description: 'Full-stack developer specializing in React, Next.js, and TypeScript. Computer Studies graduate from Langara College with experience building modern web applications.',
   keywords: [
     'Full-Stack Developer',
