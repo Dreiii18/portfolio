@@ -31,8 +31,8 @@ export const experiences: Experience[] = [
     company: 'Mirnah Technology System',
     location: 'Remote',
     type: 'work',
-    startDate: 'Jun 2024',
-    endDate: 'Aug 2024',
+    startDate: 'Feb 2023',
+    endDate: 'Jun 2023',
     description: [
       'Developed and maintained web applications using modern JavaScript frameworks',
       'Collaborated with senior developers on feature implementation and bug fixes',
