@@ -90,4 +90,29 @@ export const projects: Project[] = [
     year: '2025',
     status: 'completed'
   },
+  {
+    id: 'laundryping',
+    title: 'LaundryPing',
+    description: 'SMS notification app for Philippine laundromats — sends "laundry done" alerts to customers via Semaphore.',
+    longDescription: 'A simple, low-friction web app for Philippine laundromats that sends "laundry done" SMS notifications to customers. Built to replace manual phone calls and paper logbooks with a tap-tap-done workflow. Features multi-tenant architecture with Row-Level Security, AES-256-GCM phone encryption, bilingual Tagalog/English SMS templates, and a free tier of 50 SMS/month per shop.',
+    technologies: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Semaphore API', 'shadcn/ui'],
+    features: [
+      'PH-optimized bilingual SMS notifications via Semaphore',
+      'Free tier with 50 SMS/month per laundromat',
+      'AES-256-GCM phone number encryption at rest',
+      'Idempotent triple-layer SMS duplicate protection',
+      'Multi-tenant Row-Level Security from day one',
+      'Machine and job management dashboard',
+      'Mobile-first design for budget Android devices',
+      'Real-time SMS quota tracking'
+    ],
+    image: '/images/laundryping-hero.png',
+    images: ['/images/laundryping-hero.png'],
+    liveUrl: 'https://laundryping.ph',
+    githubUrl: 'https://github.com/Dreiii18/LaundryPing',
+    category: 'fullstack',
+    featured: true,
+    year: '2026',
+    status: 'in-progress'
+  },
 ]
